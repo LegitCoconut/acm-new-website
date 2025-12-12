@@ -103,6 +103,34 @@ a {
     opacity: 0;
 }
 
+/* Premium Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes blurIn {
+    from { filter: blur(6px); opacity: 0; }
+    to { filter: blur(0); opacity: 1; }
+}
+
+.animate-fade { animation: fadeIn 0.8s var(--ease-luxury) forwards; opacity: 0; }
+.animate-scale { animation: scaleIn 0.7s var(--ease-luxury) forwards; opacity: 0; }
+.animate-blur { animation: blurIn 0.9s var(--ease-luxury) forwards; opacity: 0; }
+
+/* Reveal utilities */
+.reveal { opacity: 0; transform: translateY(24px); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); transition: all 700ms var(--ease-luxury); }
+
+/* Hero parallax */
+.hero-parallax .hero-background { will-change: transform; }
+.hero-parallax .hero-overlay { will-change: opacity; }
+
 /* Navbar specific animation that preserves horizontal centering */
 .navbar.animate-fade-up {
     animation: none;
@@ -1016,14 +1044,14 @@ a {
     position: relative;
     width: 100%;
     overflow: hidden;
-    padding: 4rem 0;
+    padding: 3rem 0;
     background: var(--midnight-navy);
 }
 
 .team-carousel-track {
     display: flex;
-    gap: 2rem;
-    animation: scrollTeam 40s linear infinite;
+    gap: 1.25rem;
+    animation: scrollTeam 45s linear infinite;
     width: max-content;
 }
 
@@ -1038,7 +1066,7 @@ a {
 }
 
 .team-card {
-    flex: 0 0 320px;
+    flex: 0 0 260px;
     background: var(--deep-slate);
     border: 1px solid var(--light-slate);
     transition: all 0.3s var(--ease-luxury);
@@ -1050,8 +1078,9 @@ a {
 }
 
 .team-card-image {
-    height: 350px;
+    height: 220px;
     filter: grayscale(100%);
+    object-fit: cover;
 }
 
 .team-card:hover .team-card-image {
@@ -1059,8 +1088,34 @@ a {
 }
 
 .team-card-content {
-    padding: 1.5rem;
+    padding: 1rem;
     border-top: 1px solid var(--light-slate);
+}
+
+/* Team card typography tuning */
+.team-card-content h3 {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+}
+.team-card-content .role {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+.team-card-content .description {
+    font-size: 0.85rem;
+}
+
+/* Responsive adjustments for team cards */
+@media (max-width: 1024px) {
+    .team-card { flex: 0 0 220px; }
+    .team-card-image { height: 200px; }
+}
+@media (max-width: 768px) {
+    .team-carousel-track { gap: 1rem; }
+    .team-card { flex: 0 0 200px; }
+    .team-card-image { height: 180px; }
+    .team-card-content h3 { font-size: 0.95rem; }
+    .team-card-content .role, .team-card-content .description { font-size: 0.8rem; }
 }
 
 /* ============================================

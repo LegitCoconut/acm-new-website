@@ -116,3 +116,38 @@
         }
     });
 })();
+
+// Scroll Reveal & Parallax
+(function () {
+    const revealEls = document.querySelectorAll('.reveal, .animate-fade, .animate-scale, .animate-blur');
+    const hero = document.querySelector('.hero');
+    const bg = document.querySelector('.hero.hero-parallax .hero-background');
+    const overlay = document.querySelector('.hero.hero-parallax .hero-overlay');
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            }
+        });
+    }, { threshold: 0.15 });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    // Parallax for hero
+    let lastY = window.scrollY;
+    window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        // subtle parallax only when hero exists
+        if (hero && bg) {
+            const offset = Math.min(60, y * 0.2);
+            bg.style.transform = `translateY(${offset}px) scale(1.02)`;
+        }
+        if (hero && overlay) {
+            const fade = Math.max(0.4, 0.9 - y * 0.001);
+            overlay.style.opacity = String(fade);
+        }
+        lastY = y;
+    });
+})();
