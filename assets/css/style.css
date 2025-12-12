@@ -739,8 +739,8 @@ a {
 
 .timeline-container {
     position: relative;
-    max-width: 1000px;
-    margin: 3rem auto;
+    max-width: 860px;
+    margin: 2.5rem auto;
 }
 
 .timeline-line {
@@ -749,15 +749,19 @@ a {
     transform: translateX(-50%);
     top: 0;
     bottom: 0;
-    width: 2px;
-    background: var(--light-slate);
+    width: 3px;
+    background: linear-gradient(
+        to bottom,
+        var(--light-slate),
+        rgba(212, 175, 55, 0.5)
+    );
 }
 
 .timeline-item {
     position: relative;
     width: 50%;
-    padding: 0 40px;
-    margin-bottom: 3rem;
+    padding: 0 28px;
+    margin-bottom: 2.2rem;
     box-sizing: border-box;
 }
 
@@ -775,9 +779,9 @@ a {
 
 .timeline-content {
     background: var(--deep-slate);
-    padding: 2rem;
-    border-radius: 4px;
-    border: 1px solid var(--light-slate);
+    padding: 1.2rem 1.4rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     position: relative;
     transition: all 0.3s ease;
     display: inline-block;
@@ -785,6 +789,8 @@ a {
     width: 100%;
     text-align: left;
     /* Keep internal text left for readability */
+    box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
 }
 
 /* Markers */
@@ -818,9 +824,17 @@ a {
 }
 
 .timeline-content h3 {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     color: var(--gold-primary);
     margin-bottom: 0.5rem;
+}
+
+.timeline-content .date {
+    display: inline-block;
+    font-size: 0.85rem;
+    letter-spacing: 0.6px;
+    color: var(--text-muted);
+    margin-bottom: 0.35rem;
 }
 
 /* Responsive Mobile Fallback */
@@ -834,9 +848,10 @@ a {
         width: 100%;
         left: 0 !important;
         /* Force reset */
-        padding-left: 60px;
+        padding-left: 48px;
         padding-right: 0;
         text-align: left;
+        margin-bottom: 1.75rem;
     }
 
     .timeline-item:nth-child(even) .timeline-marker,
@@ -916,31 +931,60 @@ a {
 
 .luxury-gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 1.5rem;
-    padding: 2rem 0;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+    padding: 1.75rem 0;
 }
 
 .gallery-event-card {
     position: relative;
-    height: 400px;
+    height: 320px;
     border-radius: 12px;
     overflow: hidden;
     cursor: pointer;
     box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 }
+.gallery-image-wrapper img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s var(--ease-luxury), filter 0.5s var(--ease-luxury);
+    filter: brightness(0.85);
+}
 
+/* Current markup uses .gallery-image-wrapper and .gallery-overlay */
+.gallery-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #020c1b;
+}
+
+.gallery-image-wrapper img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s var(--ease-luxury), filter 0.5s var(--ease-luxury);
+    filter: brightness(0.85);
+}
+
+/* Legacy class support (if present) */
 .gallery-event-image {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    /* Changed from cover to contain to prevent zooming/cropping */
+    object-fit: cover;
     background-color: #020c1b;
-    /* Dark background for letterboxing */
     transition: transform 0.5s var(--ease-luxury);
-    filter: brightness(0.8);
+    filter: brightness(0.85);
 }
 
+.gallery-overlay,
 .gallery-event-overlay {
     position: absolute;
     inset: 0;
@@ -963,16 +1007,24 @@ a {
 }
 
 /* Hover Effects */
-.gallery-event-card:hover .gallery-event-image {
-    transform: scale(1.03);
+.gallery-event-card:hover .gallery-event-image,
+.gallery-event-card:hover .gallery-image-wrapper img {
+    transform: scale(1.02);
     /* Reduced scale from 1.1 */
-    filter: brightness(0.4);
+    filter: brightness(0.55);
     /* Darken image more on hover to make text pop */
 }
 
-.gallery-event-card:hover .gallery-event-overlay {
+.gallery-event-card:hover .gallery-event-overlay,
+.gallery-event-card:hover .gallery-overlay {
     opacity: 1;
     transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+    .gallery-event-card {
+        height: 260px;
+    }
 }
 
 /* Always show title slightly? Optional. For now full reveal. */
@@ -1039,6 +1091,42 @@ a {
 /* ============================================
    TEAM CAROUSEL - DARK
    ============================================ */
+/* ============================================
+   CUSTOM SCROLLBAR (Luxury Dark)
+   ============================================ */
+
+/* Firefox */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold-primary) rgba(255, 255, 255, 0.08);
+}
+
+/* WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(2, 12, 27, 0.55);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(212, 175, 55, 0.9), rgba(212, 175, 55, 0.6));
+    border-radius: 10px;
+    border: 2px solid rgba(2, 12, 27, 0.8);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.25);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgba(212, 175, 55, 1), rgba(212, 175, 55, 0.7));
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
 
 .team-carousel-wrapper {
     position: relative;
